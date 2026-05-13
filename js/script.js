@@ -1,5 +1,5 @@
 // ── scroll reveal ──
-const revealObserverOptions = { threshold: 0.12 };
+const revealObserverOptions = { threshold: 0.15 };
 const revealObserver = new IntersectionObserver((entries, observer) => {
     entries.forEach((entry) => {
         if (entry.isIntersecting) {
@@ -10,7 +10,7 @@ const revealObserver = new IntersectionObserver((entries, observer) => {
 }, revealObserverOptions);
 
 document.querySelectorAll('.reveal').forEach((el, index) => {
-    el.style.transitionDelay = `${(index % 4) * 0.07}s`;
+    el.style.transitionDelay = `${(index % 4) * 0.15}s`;
     revealObserver.observe(el);
 });
 

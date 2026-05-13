@@ -95,6 +95,43 @@ nav {
   position: relative;
 }
 
+.glitch-text {
+  display: inline-block;
+  transition: all 0.1s;
+}
+
+.glitch-text:hover {
+  animation: glitch-skew 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite;
+  color: var(--text);
+  text-shadow: 2px 0px var(--accent2), -2px 0px #2b45a2;
+}
+
+@keyframes glitch-skew {
+  0% {
+    transform: skew(0deg);
+  }
+
+  20% {
+    transform: skew(-10deg);
+  }
+
+  40% {
+    transform: skew(10deg);
+  }
+
+  60% {
+    transform: skew(-5deg);
+  }
+
+  80% {
+    transform: skew(5deg);
+  }
+
+  100% {
+    transform: skew(0deg);
+  }
+}
+
 /* PCとスマホの表示切り替え */
 @media (min-width: 1025px) {
   .sp-only {
@@ -321,6 +358,40 @@ section {
   object-fit: cover;
 }
 
+/* ── Movie ── */
+#movie {
+  /* 背景の重なりを維持するための指定 */
+  background-color: var(--surface);
+  position: relative;
+  z-index: 10;
+}
+
+.movie-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  aspect-ratio: 16/9;
+  border: 1.5px solid var(--border);
+  background: rgba(8, 8, 8, 0.7);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  transition: border-color .3s, transform .3s;
+}
+
+.movie-wrapper:hover {
+  border-color: var(--accent);
+}
+
+.movie-wrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
 /* ── Gallery ── */
 .screenshots-grid {
   display: flex;
@@ -545,8 +616,8 @@ footer {
 /* ── ふわっと表示するアニメーション ── */
 .reveal {
   opacity: 0;
-  transform: translateY(24px);
-  transition: opacity .7s cubic-bezier(.4, 0, .2, 1), transform .7s cubic-bezier(.4, 0, .2, 1);
+  transform: translateY(50px);
+  transition: opacity 1s ease-out, transform 0.5s ease-out;
 }
 
 .reveal.visible {
