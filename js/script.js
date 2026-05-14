@@ -1,3 +1,13 @@
+// ── initial background setup ──
+const initBg = () => {
+    if (window.innerWidth <= 1024) {
+        document.body.classList.add('bg-sp');
+    } else {
+        document.body.classList.add('bg-pc');
+    }
+};
+initBg();
+
 // ── scroll reveal ──
 const revealObserverOptions = { threshold: 0.15 };
 const revealObserver = new IntersectionObserver((entries, observer) => {
@@ -99,19 +109,53 @@ window.addEventListener('load', () => {
     const splashLogo = document.querySelector('.splash-logo');
 
     if (splash && splashLogo) {
-        // 0.5秒（500ミリ秒）後にロゴをじわっと表示
         setTimeout(() => {
             splashLogo.classList.add('show');
         }, 1500);
 
-        // 読み込み完了から3秒（3000ミリ秒）後に黒い画面ごとじわっと消す
         setTimeout(() => {
             splash.classList.add('loaded');
-            // ★ ここでスクロール禁止を解除して、動かせるようにするよ！
             document.body.classList.remove('no-scroll');
         }, 5000);
     } else {
-        // スプラッシュ画面がない場合（エラー回避の保険）
         document.body.classList.remove('no-scroll');
     }
 });
+
+// ── breakpoint transition ──
+const transitionOverlay = document.getElementById('transition-overlay');
+let isMobileView = window.innerWidth <= 1024;
+
+window.addEventListener('resize', () => {
+    const currentIsMobile = window.innerWidth <= 1024;
+
+    if (isMobileView !== currentIsMobile) {
+        isMobileView = currentIsMobile;
+
+        if (transitionOverlay) {
+            transitionOverlay.classList.remove('animate');
+            void transitionOverlay.offsetWidth;
+            transitionOverlay.classList.add('animate');
+
+            // 画面がストライプで完全に覆われるタイミングで背景クラスを切り替える
+            setTimeout(() => {
+                if (currentIsMobile) {
+                    document.body.classList.add('bg-sp');
+                    document.body.classList.remove('bg-pc');
+                } else {
+                    document.body.classList.add('bg-pc');
+                    document.body.classList.remove('bg-sp');
+                }
+            }, 600);
+        } else {
+            // 要素が見つからない場合のフォールバック
+            if (currentIsMobile) {
+                document.body.classList.add('bg-sp');
+                document.body.classList.remove('bg-pc');
+            } else {
+                document.body.classList.add('bg-pc');
+                document.body.classList.remove('bg-sp');
+            }
+        }
+    }
+}, { passive: true });
