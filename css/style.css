@@ -340,7 +340,7 @@ section {
 }
 
 .container {
-  max-width: 960px;
+  max-width: 1100px;
   margin: 0 auto;
 }
 
@@ -547,7 +547,7 @@ section {
 
 .characters-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 1.5rem;
 }
 
@@ -602,7 +602,7 @@ section {
 
 .links-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 1rem;
 }
 
@@ -714,6 +714,24 @@ footer {
 
 body.no-scroll {
   overflow: hidden;
+}
+
+/* ── 4K & ウルトラワイドモニター対応 ── */
+@media (min-width: 1600px) {
+  .container {
+    /* 画面が大きくてもこれ以上は広げない上限値 */
+    max-width: 1440px;
+  }
+
+  .movie-wrapper {
+    /* 4Kなら動画プレイヤーも少しリッチに大きく */
+    max-width: 1080px;
+  }
+
+  .hero-content.pc-layout {
+    /* 画面の右端（5%）ではなく、1440pxのコンテンツ幅の右端に固定する */
+    right: calc(50vw - 720px);
+  }
 }
 
 @media (max-width: 1024px) {
