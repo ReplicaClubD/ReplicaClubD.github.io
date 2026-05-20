@@ -23,14 +23,9 @@ html {
   scroll-behavior: smooth;
 }
 
+/* ↓ bodyから背景関係の指定を全部消してスッキリさせる */
 body {
-  background-size: cover;
-  background-attachment: fixed;
-  background-position: center;
   background-color: #000;
-
-  background-repeat: no-repeat;
-
   color: var(--text);
   font-family: 'Noto Sans JP', sans-serif;
   font-weight: 300;
@@ -38,17 +33,35 @@ body {
   overflow-x: hidden;
 }
 
-body.bg-pc {
-  background-image: url('../img/keyArt_PC.jpg');
+/* ── Safariバグ回避：背景用の固定シートを作る王道テクニック ── */
+body::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  /* 画面サイズに固定 */
+  z-index: -1;
+  /* コンテンツの一番後ろへ */
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-color: #000;
+
+  /* JSから「CSS変数」で位置を受け取って動かすおまじない */
+  background-position: var(--bg-pos-x, center) center;
 }
 
-body.bg-sp {
+/* PC版の背景 */
+body.bg-pc::after {
+  background-image: url('../img/keyArt_PC.jpg');
+  --bg-pos-x: center;
+}
+
+/* スマホ版の背景 */
+body.bg-sp::after {
   background-image: url('../img/keyArt.jpg');
-  background-position: 5% center;
-  background-size: cover;
-  /* auto 100vh から変更 */
-  background-attachment: scroll;
-  /* スマホ特有のバグ回避のために追加 */
+  --bg-pos-x: 5%;
 }
 
 /* ── ノイズのエフェクト ── */

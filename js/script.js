@@ -96,10 +96,12 @@ window.addEventListener('scroll', () => {
             const scrollRatio = window.scrollY / maxScroll;
             const startPosition = 5;
             const currentPosition = startPosition + (scrollRatio * (100 - startPosition));
-            document.body.style.backgroundPositionX = `${currentPosition}%`;
+
+            // bodyの直接書き換えをやめて、CSS変数に位置の数値を渡す
+            document.documentElement.style.setProperty('--bg-pos-x', `${currentPosition}%`);
         }
     } else {
-        document.body.style.backgroundPositionX = '';
+        document.documentElement.style.setProperty('--bg-pos-x', 'center');
     }
 }, { passive: true });
 
