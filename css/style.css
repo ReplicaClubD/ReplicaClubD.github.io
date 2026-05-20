@@ -33,34 +33,34 @@ body {
   overflow-x: hidden;
 }
 
-/* ── Safariバグ回避：背景用の固定シートを作る王道テクニック ── */
+/* ── Safariバグ回避：背景用の固定シート ── */
 body::after {
   content: '';
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  height: 100vh;
-  /* 画面サイズに固定 */
+  /* iPhoneの「100vhバグ」を避けるために 100% にするよ */
+  height: 100%;
   z-index: -1;
-  /* コンテンツの一番後ろへ */
-  background-size: cover;
   background-repeat: no-repeat;
   background-color: #000;
-
-  /* JSから「CSS変数」で位置を受け取って動かすおまじない */
   background-position: var(--bg-pos-x, center) center;
 }
 
 /* PC版の背景 */
 body.bg-pc::after {
   background-image: url('../img/keyArt_PC.jpg');
+  /* PCは今まで通り画面いっぱいに広げる */
+  background-size: cover;
   --bg-pos-x: center;
 }
 
 /* スマホ版の背景 */
 body.bg-sp::after {
   background-image: url('../img/keyArt.jpg');
+  /* ★スマホは cover をやめて、PCシミュレーションで綺麗だった縦幅基準に戻す！ */
+  background-size: auto 100%;
   --bg-pos-x: 5%;
 }
 
