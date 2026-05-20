@@ -45,7 +45,10 @@ body.bg-pc {
 body.bg-sp {
   background-image: url('../img/keyArt.jpg');
   background-position: 5% center;
-  background-size: auto 100vh;
+  background-size: cover;
+  /* auto 100vh から変更 */
+  background-attachment: scroll;
+  /* スマホ特有のバグ回避のために追加 */
 }
 
 /* ── ノイズのエフェクト ── */
