@@ -40,28 +40,27 @@ body::after {
   top: 0;
   left: 0;
   width: 100%;
-  /* iPhoneの「100vhバグ」を避けるために 100% にするよ */
   height: 100%;
   z-index: -1;
   background-repeat: no-repeat;
   background-color: #000;
-  background-position: var(--bg-pos-x, center) center;
+  /* ここにあった background-position は消して、下でそれぞれ指定するよ */
 }
 
 /* PC版の背景 */
 body.bg-pc::after {
   background-image: url('../img/keyArt_PC.jpg');
-  /* PCは今まで通り画面いっぱいに広げる */
   background-size: cover;
-  --bg-pos-x: center;
+  /* PCはスクロールで動かさないから、常にド真ん中(center)に固定！ */
+  background-position: center;
 }
 
 /* スマホ版の背景 */
 body.bg-sp::after {
   background-image: url('../img/keyArt.jpg');
-  /* ★スマホは cover をやめて、PCシミュレーションで綺麗だった縦幅基準に戻す！ */
   background-size: auto 100%;
-  --bg-pos-x: 5%;
+  /* JSから受け取った変数を使って動かす。JSが動く前(初期値)は 5% にしておくよ */
+  background-position: var(--bg-pos-x, 5%) center;
 }
 
 /* ── ノイズのエフェクト ── */
